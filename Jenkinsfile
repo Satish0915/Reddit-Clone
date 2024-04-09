@@ -22,12 +22,13 @@ pipeline {
         }
         stage('Checkout from Git') {
             steps {
-                git branch: 'main', url: 'https://github.com/Satish0915/Reddit-Clone.git'
+                git branch: 'main', credentialsId: 'Github', url: 'https://github.com/Satish0915/Reddit-Clone.git'
+               // git branch: 'main', url: 'https://github.com/Satish0915/Reddit-Clone.git'
             }
         }
         stage("Sonarqube Analysis") {
             steps {
-                withSonarQubeEnv('SonarQube-Server') {
+                withSonarQubeEnv('SonarQube-server') {
                     sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Reddit-Clone-CI \
                     -Dsonar.projectKey=Reddit-Clone-CI'''
                 }
